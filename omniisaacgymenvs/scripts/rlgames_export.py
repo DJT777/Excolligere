@@ -116,12 +116,12 @@ class RLGTrainer():
         torch.onnx.export(traced, *adapter.flattened_inputs, "dofbotreacherDefault.onnx", verbose=True, input_names=['obs'],
                           output_names=['mu', 'log_std', 'value'])
 
-        runner.run({
-            'train': not self.cfg.test,
-            'play': self.cfg.test,
-            'checkpoint': self.cfg.checkpoint,
-            'sigma': None
-        })
+        #runner.run({
+        #    'train': not self.cfg.test,
+        #    'play': self.cfg.test,
+        #    'checkpoint': self.cfg.checkpoint,
+        #    'sigma': None
+        #})
 
 
 @hydra.main(config_name="config", config_path="../cfg")

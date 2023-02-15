@@ -121,7 +121,7 @@ class DofbotReacherTask(ReacherTask):
         return arm_view
     
     def get_object_displacement_tensor(self):
-        return torch.tensor([0.0, 0.015, 0.1], device=self.device).repeat((self.num_envs, 1))
+        return torch.tensor([0.015, 0.015, 0.0], device=self.device).repeat((self.num_envs, 1))
 
     def get_observations(self):
         self.arm_dof_pos = self._arms.get_joint_positions()
@@ -146,7 +146,8 @@ class DofbotReacherTask(ReacherTask):
         new_pos = torch_rand_float(-1, 1, (n_reset_envs, 3), device=self.device)
         new_pos[:, 0] = new_pos[:, 0] * 0.05 + 0.15 * torch.sign(new_pos[:, 0])
         new_pos[:, 1] = new_pos[:, 1] * 0.05 + 0.15 * torch.sign(new_pos[:, 1])
-        new_pos[:, 2] = torch.abs(new_pos[:, 2] * 0.2) + 0.15
+        new_pos[:, 2] = 0.05
+        #new_pos[:, 2] = torch.abs(new_pos[:, 2] * 0.2) + 0.15
         return new_pos
 
     def compute_full_observations(self, no_vel=False):
